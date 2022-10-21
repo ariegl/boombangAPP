@@ -1,0 +1,81 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body{
+  /*overflow:hidden;*/
+}
+
+.d-flex-all-center{
+  display:flex;
+  justify-content: center;
+  align-content:center;
+  flex-wrap:wrap;
+}
+
+.container-inicial{
+  min-height:100vh;
+}
+
+#personaje{
+  background-color:white;
+  width:100%;
+  float:left;
+  position:relative;
+  overflow:hidden;
+}
+
+#informacion{
+  background-color:green;
+  width:100%;
+  height:100vh;
+  float:left;
+  position:relative;
+  overflow:hidden;
+}
+
+.container-principal-personajes{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.container-principal-personajes .col{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  margin:30px;
+  width:160px;
+  height:160px;
+  max-width:160px;
+  max-height:160px;
+  background:#dadada;
+  border-radius:10px;
+  cursor:pointer;
+  transition:all 0.4s ease;
+}
+
+.container-principal-personajes .col:hover{
+  border:4px solid #5400ff;
+  transform:scale(1.13);
+}
+
+#personaje .row .col img{
+  width:140px;
+  height:140px;
+}
+
+.no-select{
+  transform:scale(1);
+  border:4px solid #adadad;
+}
+
+.personaje-seleccionado{
+  border:4px solid #5400ff;
+  transform:scale(1.13);
+}
+

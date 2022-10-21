@@ -1,0 +1,102 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+.contenedor-principal{
+  height:100vh;
+}
+
+.contenedor-principal .main-container{
+  flex:1 1;
+}
+
+.img-personajes {
+  height: 400px;
+}
+
+.d-flex-all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.d-flex-all-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.d-flex-all-right{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.card-login{
+  width:80%;
+  background:white;
+}
+
+.card-login-header{
+  width:100%;
+  background:black;
+  border-top-left-radius: 8px;
+  border-top-right-radius:8px;
+}
+
+.card-login-header-title{
+  font-size:2rem;
+}
+
+.card-login-body-container{
+  border:1px solid #dadada;
+}
+
+.card-login-body-info{
+  width:80%;
+}
+
+.card-login-body-action{
+  width:80%;
+}
+
+.card-login-body-action .btnEntrar{
+  padding:10px 40px 10px 40px;
+}
+
+.card-login-body-action-signup{
+  width:50%;
+}
+
+.card-login-body-action-login{
+  width:50%;
+}
+
+@media (max-width: 989px) {
+  #info-section{
+    justify-content:flex-end;
+  }
+
+  .card-login{
+    width:95%;
+  }
+}
+
+@media (max-width: 767px) {
+  #info-section{
+    justify-content:center;
+  }
+
+  .container-login-body-action-login{
+    justify-content:center;
+  }
+
+  .img-personajes{
+    padding:20px 0px 20px 0px;
+  }
+}
