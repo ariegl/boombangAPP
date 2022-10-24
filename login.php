@@ -33,7 +33,7 @@
                                 <span class="text-center">¿Aun no tienes cuenta?<br><a href="signup.php">Crear una cuenta</a></span>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12 container-login-body-action-login d-flex-all-right">
-                                <input class="btn btn-primary mt-3 mb-4 btnEntrar" type="button" value="entrar">
+                                <input class="btn btn-primary mt-3 mb-4 btnEntrar" type="button" value="Entrar">
                             </div>
                         </div>
                     </div>
