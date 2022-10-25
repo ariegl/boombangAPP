@@ -44,27 +44,33 @@
                 <img id="viewCharacter" height="400px" src="img/personajes/gata_body.png" alt="">
             </div>
             <div class="col d-flex justify-content-start align-items-center">
-                <div class="contenedor-info-user">
+                <form id="signUpForm" class="contenedor-info-user">
                     <h1 class="pt-2 pb-3 w-100">Ya casi terminas!</h1>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="FormControlInput1" placeholder="">
+                        <input id="txtUsername" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Contraseña</label>
-                        <input type="text" class="form-control" id="FormControlInput1" placeholder="">
+                        <input id="txtPass" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Repetir contraseña</label>
-                        <input type="text" class="form-control" id="FormControlInput1" placeholder="">
+                        <input id="txtRPass" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Email</label>
-                        <input type="text" class="form-control" id="FormControlInput1" placeholder="">
+                        <input id="txtEmail" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="container-fluid">
-                        <input type="button" value="Registrarme" class="btn btn-primary">
+                        <input type="submit" value="Registrarme" class="btn btn-primary">
                     </div>
+                </form>
+                <div id="container-spinner" class="d-flex justify-content-center visually-hidden w-75 flex-wrap">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="w-100 text-center text-primary fw-bold pt-3">Validando</p>
                 </div>
             </div>
         </div>
@@ -72,35 +78,76 @@
             <a class="link-primary" href="#personaje"><i class="bi bi-arrow-up-square-fill"></i></a>
         </div>
     </div>
+    <script src="js/jquery.min.js"></script>
     <script>
         var contenedorPersonajes = document.querySelector('.container-principal-personajes');
         var personajes = document.querySelectorAll('.personaje');
         var viewCharacter = document.querySelector('#viewCharacter');
         var arrPersonajes = [];
- 
+        var selectedCharacter = 1;
+
         for (var personaje of personajes) {
             arrPersonajes.push(personaje.id);
         }
 
         contenedorPersonajes.addEventListener('click', function(event) {
-            if (arrPersonajes.find(element => element === event.target.parentNode.id)){
+            if (arrPersonajes.find(element => element === event.target.parentNode.id)) {
 
                 //Deja todos los personajes en estado NO-seleccionado
                 clearAllSelectedCharacter();
 
+                //MOSTRANDO PERSONAJE SELECCIONADO
                 event.target.parentNode.classList.add('personaje-seleccionado');
                 event.target.parentNode.classList.remove('no-select');
 
-                viewCharacter.src = "img/personajes/"+event.target.parentNode.id+"_body.png";
+                viewCharacter.src = "img/personajes/" + event.target.parentNode.id + "_body.png";
             } else {
                 console.log("no permitido");
             }
         });
-        
-        function clearAllSelectedCharacter(){
+
+        function clearAllSelectedCharacter() {
             personajes.forEach(element => element.classList.remove('personaje-seleccionado'));
             personajes.forEach(element => element.classList.add('no-select'));
         }
+
+        $('#signUpForm').on('submit', function(e) {
+            e.preventDefault();
+            var username = $('#txtUsername').val();
+            var password = $('#txtPass').val();
+            var rpassword = $('#txtRPass').val();
+            var correo = $('#txtEmail').val();
+
+            if (username != "" && password != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: 'utils/signup.php',
+                    dataType: 'JSON',
+                    data: {
+                        username: username,
+                        password: password,
+                        email: correo,
+                        personaje: selectedCharacter
+                    },
+                    beforeSend: function(data) {
+                        $('.contenedor-info-user').addClass('visually-hidden');
+                        $('#container-spinner').removeClass('visually-hidden');
+                    },
+                    success: function(data) {
+                        if (data.response == "Success") {
+
+                        } else if (data.response == "Invalid") {
+                            
+                        }
+                    },
+                    error: function(xhr, exception) {
+                        console.log("error");
+                    }
+                });
+            } else {
+
+            }
+        });
     </script>
 </body>
 
