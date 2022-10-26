@@ -74,10 +74,12 @@ header{
     position:absolute;
     width:100%;
     height:100vh;
-    background-color:#2a2025;
+    background-color: #0a1924;
+    /*background-color:#2a2025;*/
     display:flex;
     justify-content:center;
     align-items:center;
+    background-image:url('../img/spa/stars.png');
 }
 
 #home{
