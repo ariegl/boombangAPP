@@ -6,6 +6,8 @@
     require_once('components/headerDoc.php');
     ?>
     <link rel="stylesheet" href="css/SignUp.css">
+    <link rel="stylesheet" href="css/alertify.css">
+    <link rel="stylesheet" href="css/themes/default.css">
     <title>Document</title>
 </head>
 
@@ -45,24 +47,24 @@
             </div>
             <div class="col d-flex justify-content-start align-items-center">
                 <form id="signUpForm" class="contenedor-info-user">
-                    <h1 class="pt-2 pb-3 w-100">Ya casi terminas!</h1>
+                    <h1 class="pt-2 pb-3 ps-3 w-100 bg-primary text-white">Ya casi terminas!</h1>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Nombre de usuario</label>
                         <input id="txtUsername" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Contraseña</label>
-                        <input id="txtPass" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
+                        <input id="txtPass" type="password" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Repetir contraseña</label>
-                        <input id="txtRPass" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
+                        <input id="txtRPass" type="password" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
                     <div class="mb-3">
                         <label for="FormControlInput1" class="form-label fw-bold">Email</label>
                         <input id="txtEmail" type="text" class="form-control" id="FormControlInput1" placeholder="" required>
                     </div>
-                    <div class="container-fluid">
+                    <div class="container-fluid mb-3 d-flex-all-center">
                         <input type="submit" value="Registrarme" class="btn btn-primary">
                     </div>
                 </form>
@@ -79,6 +81,7 @@
         </div>
     </div>
     <script src="js/jquery.min.js"></script>
+    <script src="js/alertify.js"></script>
     <script>
         var contenedorPersonajes = document.querySelector('.container-principal-personajes');
         var personajes = document.querySelectorAll('.personaje');
@@ -111,6 +114,26 @@
             personajes.forEach(element => element.classList.add('no-select'));
         }
 
+        function signupShowMessages(type, message) {
+            if (type == "Invalid") {
+                if (!alertify.errorAlert) {
+                    //define a new errorAlert base on alert
+                    alertify.dialog('errorAlert', function factory() {
+                        return {
+                            build: function() {
+                                var errorHeader = '<span class="fa fa-times-circle fa-2x" ' +
+                                    'style="vertical-align:middle;color:#e10000;">' +
+                                    '</span> Uhh Oh.';
+                                this.setHeader(errorHeader);
+                            }
+                        };
+                    }, true, 'alert');
+                }
+
+                alertify.errorAlert(message+"<br/><br/><br/>");
+            }
+        }
+
         $('#signUpForm').on('submit', function(e) {
             e.preventDefault();
             var username = $('#txtUsername').val();
@@ -118,34 +141,43 @@
             var rpassword = $('#txtRPass').val();
             var correo = $('#txtEmail').val();
 
-            if (username != "" && password != "") {
-                $.ajax({
-                    type: 'POST',
-                    url: 'utils/signup.php',
-                    dataType: 'JSON',
-                    data: {
-                        username: username,
-                        password: password,
-                        email: correo,
-                        personaje: selectedCharacter
-                    },
-                    beforeSend: function(data) {
-                        $('.contenedor-info-user').addClass('visually-hidden');
-                        $('#container-spinner').removeClass('visually-hidden');
-                    },
-                    success: function(data) {
-                        if (data.response == "Success") {
-
-                        } else if (data.response == "Invalid") {
-                            
+            if (username != "" && password != "" && rpassword != "" && correo != "") {
+                if (password == rpassword) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'utils/signup.php',
+                        dataType: 'JSON',
+                        data: {
+                            username: username,
+                            password: password,
+                            rpassword: rpassword,
+                            email: correo,
+                            personaje: selectedCharacter
+                        },
+                        beforeSend: function(data) {
+                            $('.contenedor-info-user').addClass('visually-hidden');
+                            $('#container-spinner').removeClass('visually-hidden');
+                        },
+                        success: function(data) {
+                            if (data.response == "Success") {
+                                window.location="home.php";
+                            } else if (data.response == "Invalid") {
+                                setTimeout(function(){
+                                    signupShowMessages(data.response,data.message);
+                                    $('.contenedor-info-user').removeClass('visually-hidden');
+                                    $('#container-spinner').addClass('visually-hidden');
+                                },800);
+                            }
+                        },
+                        error: function(xhr, exception) {
+                            console.log(xhr);
                         }
-                    },
-                    error: function(xhr, exception) {
-                        console.log("error");
-                    }
-                });
+                    });
+                } else {
+                    signupShowMessages("Invalid","Las contraseñas no coinciden");
+                }
             } else {
-
+                signupShowMessages("Invalid","No puedes dejar campos vacios");
             }
         });
     </script>

@@ -1,53 +1,58 @@
 
 <?php
-    $nombre = $_POST['nombre'];
-    $apellidoPaterno = $_POST['apellidoPaterno'];
-    $apellidoMaterno = $_POST['apellidoMaterno'];
-    $edad = $_POST['edad'];
-    $genero = $_POST['genero'];
-    $escuela = $_POST['escuela'];
-    $carrera = $_POST['carrera'];
-    $tipoServicio = $_POST['tipoServicio'];
-    $turno = $_POST['turno'];
-    $totalHoras = $_POST['totalHoras'];
-    $fechaInicio = $_POST['fechaInicio'];
-    $fechaFin = $_POST['fechaFin'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $rpassword = $_POST['rpassword'];
+    $email = $_POST['email'];
+    $personaje = $_POST['personaje'];
+
 
     function validar_cadena($cadena){
-        $caracteres_especiales = array("'",'"',"+","-","?","¿","[","]","{","}"," ","!","¡","%","#","=",":",";");
+        $caracteres_especiales = array("'",'"',"+","?","¿","[","]","{","}"," ","!","¡","%","#","=",":",";");
         $cadena_validada = str_replace($caracteres_especiales,"",$cadena);
         return $cadena_validada;
     }
 
     //VALIDAMOS LA INFORMACION
-    $nombre_validado = validar_cadena($nombre);
-    $ap_paterno_validado = validar_cadena($apellidoPaterno);
-    $ap_materno_validado = validar_cadena($apellidoMaterno);
-    $edad_validado = validar_cadena($edad);
-    $escuela_validado = validar_cadena($escuela);
-    $carrera_validado = validar_cadena($carrera);
-    $tipoServicio_validado = validar_cadena($tipoServicio);
-    $turno_validado = validar_cadena($turno);
-    $totalHoras_validado = validar_cadena($totalHoras);
-
-    $nombre_completo = "" . $nombre_validado . " " . $ap_paterno_validado . " " . $ap_materno_validado;
+    $username_validado = validar_cadena($username);
+    $password_validado = validar_cadena($password);
+    $email_validado = validar_cadena($email);
+    $personaje_validado = validar_cadena($personaje);
 
     //Verificar que los campos no esten vacios
-    if(!empty($nombre))
+    if(!empty($username_validado) && !empty($password_validado) && !empty($email_validado) && !empty($personaje_validado))
     {
-        include 'dbConnection.php';
-        $conexion = createConnection();
+        if($password_validado == $rpassword){
+            require_once './dbConnection.php';
+            $conexion = createConnection();
 
-        $registrarPrestador =  "CALL RegistrarNuevoPrestador('$nombre_completo', '$genero','$edad_validado','$turno_validado', '$tipoServicio_validado', '$totalHoras_validado', '$fechaInicio', '$fechaFin', '$escuela_validado', '$carrera_validado')";
-        $registro = mysqli_query($mysqli,$registrarPrestador);
+            $searchUser = "SELECT * FROM usuarios WHERE username='$username_validado';";
+            $search = mysqli_query($conexion,$searchUser);
+            $rows = $search->num_rows;
 
-        if($registrarPrestador){
-            $response = array("response" => "Success");
-        }else{
-            $response = array("response" => "Invalid","message" => "ERROR AL REGISTRAR");
-        }
+            if($rows == 0){
+                $sql = "INSERT INTO usuarios (username,pass,email,personaje) VALUES ('$username_validado','$password_validado','$email_validado','$personaje_validado');";
+                $registro = mysqli_query($conexion,$sql);
         
-        echo json_encode($response);
+                if($registro){
+                    session_start();
+                    $_SESSION['userBBApp'] = $username_validado;
+                    $_SESSION['characterBBApp'] = $personaje_validado;
+                    $response = array("response" => "Success","message" => "Bienvenido ".$username_validado);
+                }else{
+                    $response = array("response" => "Invalid","message" => "ERROR AL REGISTRAR");
+                }
+            }else{
+                $response = array("response" => "Invalid","message" => "El nombre de usuario no se encuentra disponible");
+            }
+
+            $conexion->close();
+        }else{
+            $response = array("response" => "Invalid","message" => "Las contraseñas no coinciden");
+        }
+    }else{
+        $response = array("response" => "Invalid","message" => "No puede haber campos vacios");
     }
     
+    echo json_encode($response);
 ?>
