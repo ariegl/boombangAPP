@@ -89,10 +89,13 @@ body{
 /*SECCION 2*/
 .contenedor-info-user{
   width:70%;
-  background:#dadada;
-  padding:0px 20px 20px 20px;
-  border-top-left-radius: 10px;
-  border-top-right-radius:10px;
+  background:#f5f5f5;
+  border-radius: 10px;
+  border: 10px solid #0d6efd;
+}
+
+.contenedor-info-user div{
+  padding:0px 20px 0px 20px;
 }
 
 .container-arrow-up{

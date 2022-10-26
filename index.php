@@ -25,7 +25,7 @@
                         <img class="imgCloud" src="img/spa/cloud.png" alt="">
                         <img class="kekoBienvenida" src="img/spa/rastaFly.png" alt="">
                     </div>
-                    <div class="col-6 container-welcome d-flex justify-content-center align-items-center">
+                    <div class="col-6 container-welcome d-flex justify-content-center align-items-center mt-5">
                         <div class="container section-welcome d-flex flex-wrap justify-content-center align-items-center">
                             <h1 class="text-white text-center p-3">Bienvenido a BoomBang!!</h1>
                             <p class="text-white text-justify pr-3 pl-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae quo nemo dolores, modi laborum blanditiis eveniet omnis voluptates magni laudantium earum minus, quibusdam cumque quis aut repellat! Inventore, impedit et!<br><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, eum ratione. Laudantium obcaecati eius at delectus dolor necessitatibus, porro voluptatem et id aut quasi quos, placeat in eligendi ducimus quia!</p>
