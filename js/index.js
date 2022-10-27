@@ -26,7 +26,8 @@ $("#formContact").on("submit", function (e) {
           }
         },
         error: function (xhr, exception) {
-
+          console.log(xhr);
+          console.log(exception);
         },
       });
     } else {
