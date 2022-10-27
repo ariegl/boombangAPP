@@ -32,32 +32,6 @@ function clearAllSelectedCharacter() {
   personajes.forEach((element) => element.classList.add("no-select"));
 }
 
-function signupShowMessages(type, message) {
-  if (type == "Invalid") {
-    if (!alertify.errorAlert) {
-      //define a new errorAlert base on alert
-      alertify.dialog(
-        "errorAlert",
-        function factory() {
-          return {
-            build: function () {
-              var errorHeader =
-                '<span class="fa fa-times-circle fa-2x" ' +
-                'style="vertical-align:middle;color:#e10000;">' +
-                "</span> Uhh Oh.";
-              this.setHeader(errorHeader);
-            },
-          };
-        },
-        true,
-        "alert"
-      );
-    }
-
-    alertify.errorAlert(message + "<br/><br/><br/>");
-  }
-}
-
 $("#signUpForm").on("submit", function (e) {
   e.preventDefault();
   var username = $("#txtUsername").val();
@@ -76,7 +50,7 @@ $("#signUpForm").on("submit", function (e) {
           password: password,
           rpassword: rpassword,
           email: correo,
-          personaje: selectedCharacter,
+          personaje: selectedCharacter
         },
         beforeSend: function (data) {
           $(".contenedor-info-user").addClass("visually-hidden");
@@ -87,7 +61,7 @@ $("#signUpForm").on("submit", function (e) {
             window.location = "home.php";
           } else if (data.response == "Invalid") {
             setTimeout(function () {
-              signupShowMessages(data.response, data.message);
+              alertNotification(data.response, data.message);
               $(".contenedor-info-user").removeClass("visually-hidden");
               $("#container-spinner").addClass("visually-hidden");
             }, 800);
@@ -98,9 +72,9 @@ $("#signUpForm").on("submit", function (e) {
         },
       });
     } else {
-      signupShowMessages("Invalid", "Las contraseñas no coinciden");
+      alertNotification("Invalid", "Las contraseñas no coinciden");
     }
   } else {
-    signupShowMessages("Invalid", "No puedes dejar campos vacios");
+    alertNotification("Invalid", "No puedes dejar campos vacios");
   }
 });

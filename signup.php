@@ -68,12 +68,9 @@
                         <input type="submit" value="Registrarme" class="btn btn-primary">
                     </div>
                 </form>
-                <div id="container-spinner" class="d-flex justify-content-center visually-hidden w-75 flex-wrap">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <p class="w-100 text-center text-primary fw-bold pt-3">Validando</p>
-                </div>
+                <?php
+                    include('components/spinner.php');
+                ?>
             </div>
         </div>
         <div class="container-arrow-up d-flex-all-center">
@@ -82,6 +79,7 @@
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/alertify.js"></script>
+    <script src="js/functionality/alerts.js"></script>
     <script src="js/signup.js"></script>
 </body>
 

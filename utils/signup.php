@@ -1,17 +1,13 @@
 
 <?php
+    require_once('functions.php');
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $rpassword = $_POST['rpassword'];
     $email = $_POST['email'];
     $personaje = $_POST['personaje'];
 
-
-    function validar_cadena($cadena){
-        $caracteres_especiales = array("'",'"',"+","?","¿","[","]","{","}"," ","!","¡","%","#","=",":",";");
-        $cadena_validada = str_replace($caracteres_especiales,"",$cadena);
-        return $cadena_validada;
-    }
 
     //VALIDAMOS LA INFORMACION
     $username_validado = validar_cadena($username);

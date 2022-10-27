@@ -8,4 +8,9 @@
             return $conexion;
         }
     }
+
+    function cerrar_sesion(){
+        session_start();
+        session_destroy();
+    }
 ?>

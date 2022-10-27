@@ -6,6 +6,8 @@
     require_once('components/headerDoc.php');
     ?>
     <link rel="stylesheet" href="css/Login.css">
+    <link rel="stylesheet" href="css/alertify.css">
+    <link rel="stylesheet" href="css/themes/default.css">
     <title>BoomBangAPP - Login</title>
 </head>
 
@@ -20,7 +22,7 @@
                     <div class="card-login-header">
                         <h1 class="text-white ps-4 pe-4 pt-3 pb-3 text-center card-login-header-title">Iniciar sesion</h1>
                     </div>
-                    <div class="card-login-body-container d-flex-all-center">
+                    <form id="formLogin" class="card-login-body-container d-flex-all-center">
                         <div class="card-login-body-info d-flex-all-center">
                             <label for="inputUser" class="form-label mt-3 fw-bold">Usuario</label>
                             <input type="text" id="inputUser" class="form-control mb-3">
@@ -33,14 +35,21 @@
                                 <span class="text-center">¿Aun no tienes cuenta?<br><a href="signup.php">Crear una cuenta</a></span>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12 container-login-body-action-login d-flex-all-right">
-                                <input class="btn btn-primary mt-3 mb-4 btnEntrar" type="button" value="Entrar">
+                                <input class="btn btn-primary mt-3 mb-4 btnEntrar" type="submit" value="Entrar">
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    <?php
+                        include('components/spinner.php');
+                    ?>
                 </div>
             </div>
         </div>
     </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/alertify.js"></script>
+    <script src="js/functionality/alerts.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

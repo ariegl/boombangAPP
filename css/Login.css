@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body{
+  overflow:hidden;
+  overflow-x:hidden;
+}
+
 .contenedor-principal{
   height:100vh;
 }
@@ -40,6 +45,7 @@
 .card-login{
   width:80%;
   background:white;
+  min-height:300px;
 }
 
 .card-login-header{
