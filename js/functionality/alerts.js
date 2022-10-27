@@ -22,4 +22,26 @@ function alertNotification(type, message) {
 
     alertify.errorAlert(message + "<br/><br/><br/>");
   }
+
+  if (type == "successMessage") {
+    if (!alertify.successAlert) {
+      //define a new errorAlert base on alert
+      alertify.dialog(
+        "successAlert",
+        function factory() {
+          return {
+            build: function () {
+              var successHeader =
+                '<span class="" ' + '</span> Completo';
+              this.setHeader(successHeader);
+            },
+          };
+        },
+        true,
+        "alert"
+      );
+    }
+
+    alertify.successAlert(message + "<br/><br/><br/>  Gracias por tus sugerencias!!");
+  }
 }

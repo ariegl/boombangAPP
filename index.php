@@ -5,6 +5,8 @@
         require_once('components/headerDoc.php');
     ?>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/alertify.css">
+    <link rel="stylesheet" href="css/themes/default.css">
     <title>BoomBang SPA example</title>
 </head>
 <body>
@@ -123,21 +125,21 @@
             <div class="col">
                 <div class="container">
                     <h1>contactanos</h1>
-                    <form action="#">
+                    <form id="formContact">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Nombre completo</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="nombre">
+                            <input id="txtNombre" type="text" class="form-control" placeholder="nombre" maxlength="50">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                            <textarea id="txtMensaje" class="form-control" rows="7" maxlength="300"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Correo electronico</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            <input id="txtCorreo" type="email" class="form-control" maxlength="100" placeholder="name@example.com">
                         </div>
                         <div class="mb-3">
-                            <input type="button" value="enviar" class="btn btn-primary">
+                            <input type="submit" value="enviar" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
@@ -243,5 +245,10 @@
         }
 
     </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/alertify.js"></script>
+    <script src="js/functionality/alerts.js"></script>
+    <script src="js/functionality/functions.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@ $("#formLogin").on("submit", function (e) {
   var username = $("#inputUser").val();
   var password = $("#inputPassword").val();
 
-  if (username != "" && password) {
+  if (username != "" && password != "") {
     $.ajax({
       type: "POST",
       url: "utils/login.php",
